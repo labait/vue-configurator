@@ -1,9 +1,13 @@
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, provide } from 'vue'
+  import ConfiguratorLayer from './configurator-layer.vue'
 
-  const layerWidth = 500;
-  const layerHeight = 600;
-  const debug = ref(false);
+
+  const settings = ref({
+    layerWidth: 500,
+    layerHeight: 600,
+    debug: true,
+  })
 
   const configurations = ref([
     {
@@ -41,34 +45,22 @@
   onMounted(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('debug')) {
-      debug.value = true;
+      settings.value.debug = true;
     }
   })
+
+  provide('settings', settings)
+  provide('configurations', configurations)
+  provide('configuration', configuration)
 </script>
 
 <template>
-  <div class="container configurator d-flex flex-column align-items-center justify-content-center"  :class="{ 'debug': debug }">
-    <pre v-if="debug">{{ configuration }}</pre>
+  <div class="container configurator d-flex flex-column align-items-center justify-content-center"  :class="{ 'debug': settings.debug }">
+    <pre v-if="settings.debug">{{ configuration }}</pre>
     <h1>Configurator</h1>
-    <div class="layers" :style="{ width: layerWidth + 'px', height: layerHeight + 'px' }">
-      <div class="layer lancet">
-      
-      </div>
-      <div class="layer quadrant">
-      
-      </div>
-      <div class="layer ring">
-        <div class="layer ring" :style="{ transform: `translateX(${(configuration.ring - 1) * -layerWidth}px)` }">
-          <div v-for="c in configurations" class="case-image">
-            <img :src="c.ring" alt="ring" :style="{ width: layerWidth + 'px' }" class="d-block">
-          </div>
-        </div>
-      </div>
-      <div class="layer case" :style="{ transform: `translateX(${(configuration.case - 1) * -layerWidth}px)` }">
-        <div v-for="c in configurations" class="case-image">
-          <img :src="c.case" alt="case" :style="{ width: layerWidth + 'px' }" class="d-block">
-        </div>
-      </div>
+    <div class="layers" :style="{ width: settings.layerWidth + 'px', height: settings.layerHeight + 'px' }">
+      <ConfiguratorLayer name="ring" />  
+      <ConfiguratorLayer name="case" />    
     </div>
     <div class="controls">
       <div class="control case">
@@ -85,6 +77,10 @@
 </template>
 
 <style lang="scss" scoped>
+
+</style>
+
+<style lang="scss" >
   .configurator {
     padding: 0;
     margin: 0;
