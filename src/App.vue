@@ -1,10 +1,10 @@
 <script setup>
-
+import configurator from './components/configurator.vue'
 </script>
 
 <template>
   <main class="d-flex align-items-center justify-content-center">
-    <h1>Hello World</h1>
+    <configurator />
   </main>
 </template>
 
