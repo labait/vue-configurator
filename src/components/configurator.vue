@@ -36,6 +36,7 @@
 
   const configuration = ref({
     case: 1,
+    ring: 1,
   })
 
   const setLayer = (layer, value) => {
@@ -93,12 +94,6 @@
         height: 100%;
         display: flex;
         transition: transform 0.5s ease-in-out;
-        .controls {
-          position: absolute;
-          bottom: -50px;
-          width: 100%;
-          text-align: center;
-        }
         &.ring {
           z-index: 1;
         }
@@ -106,6 +101,13 @@
           z-index: 0;
         }
         
+      }
+    }
+    .controls {
+      bottom: 0;
+      text-align: center;
+      .control {
+        text-align: center;
       }
     }
   
