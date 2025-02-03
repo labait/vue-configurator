@@ -1,9 +1,9 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
 
   const layerWidth = 500;
   const layerHeight = 600;
-  const debug = ref(true);
+  const debug = ref(false);
 
   const configurations = ref([
     {
@@ -30,7 +30,6 @@
 
   ])
 
-
   const configuration = ref({
     case: 1,
   })
@@ -38,11 +37,18 @@
   const setLayer = (layer, value) => {
     configuration.value[layer] = value;
   }
+
+  onMounted(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('debug')) {
+      debug.value = true;
+    }
+  })
 </script>
 
 <template>
   <div class="container configurator d-flex flex-column align-items-center justify-content-center"  :class="{ 'debug': debug }">
-    {{ configuration }}
+    <pre v-if="debug">{{ configuration }}</pre>
     <h1>Configurator</h1>
     <div class="layers" :style="{ width: layerWidth + 'px', height: layerHeight + 'px' }">
       <div class="layer lancet">
