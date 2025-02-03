@@ -6,7 +6,7 @@
   const settings = ref({
     layerWidth: 500,
     layerHeight: 600,
-    debug: false,
+    debug: true,
   })
 
   const configurations = ref([
