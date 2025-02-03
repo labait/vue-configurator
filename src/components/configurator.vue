@@ -93,7 +93,8 @@
         width: 100%;
         height: 100%;
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        //transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         &.ring {
           z-index: 1;
         }
