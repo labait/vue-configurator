@@ -6,27 +6,27 @@
   const settings = ref({
     layerWidth: 500,
     layerHeight: 600,
-    debug: true,
+    debug: false,
   })
 
   const configurations = ref([
     {
       id: 1,
-      name: 'Configuration 1',
+      name: 'model 1',
       description: 'Description 1',
       case: 'https://picsum.photos/500/600?v=1',
       ring: 'https://picsum.photos/200/200?v=1',
     },
     {
       id: 2,
-      name: 'Configuration 2',
+      name: 'model 2',
       description: 'Description 2',
       case: 'https://picsum.photos/500/600?v=2',
       ring: 'https://picsum.photos/200/200?v=2',
     },
     {
       id: 3,
-      name: 'Configuration 3',
+      name: 'model 3',
       description: 'Description 3',
       case: 'https://picsum.photos/500/600?v=3',
       ring: 'https://picsum.photos/200/200?v=3',
@@ -72,9 +72,7 @@
       </div>
       <div class="control ring m-1">
         <label for="ring" class="px-2">Ring</label>
-        <button class="btn mx-1" :class="configuration.ring === 1 ? 'btn-primary' : 'btn-light'" @click="setLayer('ring', 1)">ring1</button>
-        <button class="btn mx-1" :class="configuration.ring === 2 ? 'btn-primary' : 'btn-light'" @click="setLayer('ring', 2)">ring2</button>
-        <button class="btn mx-1" :class="configuration.ring === 3 ? 'btn-primary' : 'btn-light'" @click="setLayer('ring', 3)">ring3</button>
+        <button v-for="c in configurations" class="btn mx-1" :class="configuration.ring === c.id ? 'btn-primary' : 'btn-light'" @click="setLayer('ring', c.id)">{{ c.name }}</button>
       </div>
     </div>
   </div>
